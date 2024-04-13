@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 SizedBox(
-                  height: height * 0.35,
+                  height: height * 0.3,
                 ),
                   Container(
                     decoration: const BoxDecoration(
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       color: Colors.blue,
                     ),
-                    height: height * 0.6,
+                    height: height * 0.55,
                     width: width * 0.99,
                     child: Column(
 
