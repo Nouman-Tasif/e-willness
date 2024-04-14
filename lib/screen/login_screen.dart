@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       color: Colors.blue,
                     ),
-                    height: height * 0.55,
+                    height: height * 0.59,
                     width: width * 0.99,
                     child: Column(
 
