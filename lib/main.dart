@@ -1,9 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:myproject/screen/splash_screen.dart';
-
-import './firebase_options.dart';
-
+import 'package:myproject/viewmodel/calories_viewmodel.dart';
+import 'package:myproject/viewmodel/doctor_viewmodel.dart';
+import 'package:myproject/viewmodel/forgot_viewModel.dart';
+import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
+import 'package:myproject/viewmodel/tab_viewmodel.dart';
+import 'package:myproject/viewmodel/login_model.dart';
+import 'package:myproject/viewmodel/patient_viewmodel.dart';
+import 'package:myproject/viewmodel/signup_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,19 +18,24 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'E Wellness App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LoginViewModel()),
+        ChangeNotifierProvider(create: (context) => SignUPViewModel()),
+        ChangeNotifierProvider(create: (context) => ForgotPasswordViewModel()),
+        ChangeNotifierProvider(create: (context) => PatientViewModel()),
+        ChangeNotifierProvider(create: (context) => DoctorProfileViewModel()),
+        ChangeNotifierProvider(create: (context) => TabScreenViewModel()),
+        ChangeNotifierProvider(create: (context) => CaloriesViewModel()),
+        ChangeNotifierProvider(create: (context) => HomeScreenViewModel()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
-      home:  SplashScreen(),
     );
   }
 }

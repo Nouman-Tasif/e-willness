@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/constants/constatsvalue.dart';
+import 'package:myproject/screen/tab_screen.dart';
 
 import './patients_profile.dart';
 import './doctor_profile_screen.dart';
@@ -8,16 +10,15 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
             Positioned.fill(
               child: Container(
-                width: width,
-                height: height,
+                width: DynamicSize.width(1, context),
+                height: DynamicSize.height(1, context),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image:
@@ -28,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: height * 0.55,
+              top: DynamicSize.height(0.55, context),
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, right: 5),
                 child: Container(
@@ -39,8 +40,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     color: Colors.blueGrey,
                   ),
-                  height: height * 0.4,
-                  width: width * 0.97,
+                  height: DynamicSize.height(0.4, context),
+                  width: DynamicSize.width(0.97, context),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -175,7 +176,9 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabScreen()));
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
