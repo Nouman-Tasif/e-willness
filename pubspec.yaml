@@ -41,7 +41,11 @@ dependencies:
   cloud_firestore:
   firebase_messaging:
   firebase_storage:
+  provider: 6.1.2
   fluttertoast: 8.2.4
+  image_picker:
+
+  timezone: 0.7.0
 
 
 
