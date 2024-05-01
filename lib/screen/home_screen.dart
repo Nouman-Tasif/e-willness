@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/screen/login_screen.dart';
 import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -45,29 +47,39 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
+          DrawerHeader(
+          decoration: const BoxDecoration(
+          color: Colors.blue,
+          ),
+          child: FutureBuilder<DocumentSnapshot>(
+            future:FirebaseFirestore.instance.collection('users').doc(DynamicSize().user!.uid).get(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var userData = snapshot.data!.data() as Map<String, dynamic>?;
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                          AssetImage('assets/images/profileimage.jpg'),
+                      AssetImage('assets/images/profileimage.jpg'),
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'John Doe',
+                      "${userData!['username']}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       ),
                     ),
                   ],
-                ),
-              ),
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
+        ),
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text('My Profile'),

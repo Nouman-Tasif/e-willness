@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,9 @@ class SignUPViewModel with ChangeNotifier{
         password:
         password.text.toString())
         .then((value) {
+      FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
+        'username': username.text.toString(),
+      });
       Navigator.push(
           context,
           MaterialPageRoute(
