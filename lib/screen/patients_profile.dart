@@ -17,7 +17,7 @@ class PatientProfile extends StatelessWidget {
             margin: const EdgeInsets.all(15),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Colors.white,
+              color: Colors.blue,
             ),
             height: DynamicSize.height(0.9, context),
             width: DynamicSize.width(0.97, context),

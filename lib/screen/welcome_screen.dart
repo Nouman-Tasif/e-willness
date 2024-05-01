@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30),
                     ),
-                    color: Colors.blueGrey,
+                    color: Colors.blue,
                   ),
                   height: DynamicSize.height(0.4, context),
                   width: DynamicSize.width(0.97, context),
