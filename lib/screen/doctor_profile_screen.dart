@@ -3,7 +3,12 @@ import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/doctor_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-class DoctorProfileScreen extends StatelessWidget {
+class DoctorProfileScreen extends StatefulWidget {
+  @override
+  State<DoctorProfileScreen> createState() => _DoctorProfileScreenState();
+}
+
+class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -118,47 +123,76 @@ class DoctorProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: Colors.grey),
                             ),
-                            child: DropdownButtonFormField<String>(
-                              value: viewModel.selectedDisease,
-                              validator: (value) {
-                                if (value != null && value.isNotEmpty) {
-                                  return null;
-                                }
-                                return "Select Specilist";
-                              },
-                              onChanged: (newValue) {
-                                if (newValue != null) {
-                                  viewModel.selectedDisease = newValue;
-                                  viewModel.updateState();
-                                }
-                              },
-                              items: viewModel.doctorSpecialist.map((disease) {
-                                return DropdownMenuItem<String>(
-                                  value: disease,
-                                  child: Text(disease),
-                                );
-                              }).toList(),
-                              decoration: const InputDecoration(
-                                labelText: 'Select Specilist',
-                                contentPadding:
-                                    EdgeInsets.only(top: 10, bottom: 20),
-                                // Added to remove extra padding
-                                border: InputBorder.none,
+                            child: SingleChildScrollView(
+                              child: DropdownButtonFormField<List<String>>(
+                                value: viewModel.selectedDiseases.isNotEmpty ? viewModel.selectedDiseases : null,
+                                onChanged: (newValue) {
+                                  if (newValue != null) {
+                                    viewModel.selectedDiseases = newValue;
+                                    viewModel.updateState();
+                                  }
+                                },
+                                items: [
+                                  DropdownMenuItem<List<String>>(
+                                    value: viewModel.selectedDiseases,
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: List.generate(
+                                          viewModel.doctorSpecialist.length,
+                                              (index) {
+                                            final disease = viewModel.doctorSpecialist[index];
+                                            final isSelected = viewModel.selectedDiseases.contains(disease);
+
+                                            return CheckboxListTile(
+                                              title: Text(disease),
+                                              value: isSelected,
+                                              onChanged: (checked) {
+                                                if (checked!) {
+                                                  viewModel.selectedDiseases.add(disease);
+                                                } else {
+                                                  viewModel.selectedDiseases.remove(disease);
+                                                }
+                                                viewModel.updateState();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                decoration: const InputDecoration(
+                                  labelText: 'Select Specialist',
+                                  contentPadding: EdgeInsets.only(top: 10, bottom: 20),
+                                  border: InputBorder.none,
+                                ),
+                                isExpanded: true,
+                                selectedItemBuilder: (BuildContext context) {
+                                  return viewModel.selectedDiseases.map<Widget>((String disease) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 2),
+                                      child: Text(disease),
+                                    );
+                                  }).toList();
+                                },
                               ),
-                              isExpanded:
-                                  true, // Added to allow the dropdown to expand horizontally
                             ),
                           ),
                         ),
+
+
+
+
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 20),

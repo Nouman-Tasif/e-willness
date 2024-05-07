@@ -27,7 +27,7 @@ class LoginViewModel with ChangeNotifier {
       email.text = "";
       password.text = "";
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+          context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     }).onError((error, stackTrace) {
       isPasswordCorrect = true;
 

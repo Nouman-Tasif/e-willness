@@ -6,6 +6,8 @@ import './patients_profile.dart';
 import './doctor_profile_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
 
 
   @override

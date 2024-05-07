@@ -17,7 +17,7 @@ class DoctorProfileViewModel with ChangeNotifier{
   final qualification =TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
 
-  String? selectedDisease;
+  List<String> selectedDiseases = [];
 
   List<String> doctorSpecialist = [
     'flu',
@@ -129,7 +129,7 @@ class DoctorProfileViewModel with ChangeNotifier{
         .set({
       'fullName': fullName.text,
       'dob': dob.text,
-      'specialist': selectedDisease,
+      'specialist': selectedDiseases,
       'address': address.text,
       'Qualification': qualification.text,
     }).then((value) {

@@ -7,6 +7,8 @@ class CaloriesViewModel with ChangeNotifier{
   TextEditingController ageController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController height = TextEditingController();
   bool isMale = true;
   double result = 0.0;
 

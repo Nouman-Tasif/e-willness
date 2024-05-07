@@ -10,10 +10,10 @@ class SingleDoctorProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(doctor.name),
+        title: Text(doctor.specialty),
       ),
       body: Center(
-        child: Text('Specialty: ${doctor.specialty}'),
+        child: Text('Specialty: ${doctor.years}'),
       ),
     );
   }

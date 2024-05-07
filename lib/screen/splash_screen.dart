@@ -5,6 +5,8 @@ import 'package:myproject/screen/signup_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
 
 
   @override

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/screen/login_screen.dart';
 import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Icon(Icons.menu),
+                icon: const Icon(Icons.menu),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
@@ -59,15 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 40,
                       backgroundImage:
                       AssetImage('assets/images/profileimage.jpg'),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "${userData!['username']}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       ),
@@ -75,28 +76,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 );
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             },
           ),
         ),
               ListTile(
-                leading: Icon(Icons.person),
-                title: Text('My Profile'),
+                leading: const Icon(Icons.person),
+                title: const Text('My Profile'),
                 onTap: () {
                   // Navigate to My Profile screen
                 },
               ),
               ListTile(
-                leading: Icon(Icons.feedback),
-                title: Text('Give Feedback'),
+                leading: const Icon(Icons.feedback),
+                title: const Text('Give Feedback'),
                 onTap: () {
                   // Perform give feedback action
                 },
               ),
               ListTile(
-                leading: Icon(Icons.logout),
-                title: Text('Logout'),
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
                 onTap: () async {
                   final user = FirebaseAuth.instance.currentUser;
                   if (user != null) {
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                       // Navigate to the login screen or any other desired screen
                     } catch (e) {
-                      print('Logout failed: $e');
+                      Fluttertoast.showToast(msg: "$e");
                     }
                   }
                 },
@@ -139,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   if (viewmodel.searchText.isNotEmpty)
                     IconButton(
-                      icon: Icon(Icons.clear),
+                      icon: const Icon(Icons.clear),
                       onPressed: viewmodel.clearSearch,
                     ),
                 ],
@@ -149,12 +150,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                 itemCount: viewmodel.patientDisease.length,
                 itemBuilder: (context, index) {
+
                   final disease = viewmodel.patientDisease[index];
                   if (viewmodel.searchText.isEmpty ||
                       disease.toLowerCase().contains(viewmodel.searchText.toLowerCase())) {
                     return DiseaseListItem(disease: disease);
                   } else {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                 },
               ),
