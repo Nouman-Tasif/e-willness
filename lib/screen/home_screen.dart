@@ -17,8 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeScreenViewModel>(builder: (context, viewmodel, _) {
@@ -48,39 +46,43 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-          DrawerHeader(
-          decoration: const BoxDecoration(
-          color: Colors.blue,
-          ),
-          child: FutureBuilder<DocumentSnapshot>(
-            future:FirebaseFirestore.instance.collection('users').doc(DynamicSize().user!.uid).get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                var userData = snapshot.data!.data() as Map<String, dynamic>?;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundImage:
-                      AssetImage('assets/images/profileimage.jpg'),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "${userData!['username']}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
-          ),
-        ),
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(DynamicSize().user!.uid)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var userData =
+                          snapshot.data!.data() as Map<String, dynamic>?;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            radius: 40,
+                            backgroundImage:
+                                AssetImage('assets/images/profileimage.jpg'),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "${userData!['username']}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
               ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text('My Profile'),
@@ -150,10 +152,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                 itemCount: viewmodel.patientDisease.length,
                 itemBuilder: (context, index) {
-
                   final disease = viewmodel.patientDisease[index];
                   if (viewmodel.searchText.isEmpty ||
-                      disease.toLowerCase().contains(viewmodel.searchText.toLowerCase())) {
+                      disease
+                          .toLowerCase()
+                          .contains(viewmodel.searchText.toLowerCase())) {
                     return DiseaseListItem(disease: disease);
                   } else {
                     return const SizedBox.shrink();

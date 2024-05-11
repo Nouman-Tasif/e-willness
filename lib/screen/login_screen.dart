@@ -137,7 +137,6 @@ class LoginScreen extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-
                                   const SizedBox(
                                     height: 10.0,
                                   ),
@@ -167,7 +166,7 @@ class LoginScreen extends StatelessWidget {
                                         suffixIcon: GestureDetector(
                                           onTap: () {
                                             viewmodel.isObscure =
-                                            !viewmodel.isObscure;
+                                                !viewmodel.isObscure;
                                             viewmodel.updateStates();
                                           },
                                           child: Icon(viewmodel.isObscure
@@ -179,7 +178,8 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   if (viewmodel.isPasswordCorrect)
                                     const Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 16.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.0),
                                       child: Text(
                                         'Your password is not correct.',
                                         style: TextStyle(color: Colors.red),
@@ -213,12 +213,13 @@ class LoginScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 16.0),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
                                     child: GestureDetector(
-                                      onTap: (){
-                                        viewmodel.forgotPasswordNavigation(context);
+                                      onTap: () {
+                                        viewmodel
+                                            .forgotPasswordNavigation(context);
                                       },
                                       child: const Center(
                                         child: Text(
@@ -269,7 +270,6 @@ class LoginScreen extends StatelessWidget {
         ),
       );
     });
-
   }
 }
 

@@ -44,8 +44,12 @@ dependencies:
   provider: 6.1.2
   fluttertoast: 8.2.4
   image_picker:
-
-  timezone: 0.7.0
+  flutter_3d_choice_chip:
+  swipeable_button_view:
+  page_transition:
+  pretty_gauge:
+  share_plus:
+  timezone:
 
 
 

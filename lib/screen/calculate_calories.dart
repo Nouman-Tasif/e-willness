@@ -45,7 +45,7 @@ class CaloriesCalculator extends StatelessWidget {
                         controller: viewmodel.weightController,
                         keyboardType: TextInputType.number,
                         decoration:
-                        const InputDecoration(labelText: 'Weight (kg)'),
+                            const InputDecoration(labelText: 'Weight (kg)'),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your weight';
@@ -57,7 +57,7 @@ class CaloriesCalculator extends StatelessWidget {
                         controller: viewmodel.heightController,
                         keyboardType: TextInputType.number,
                         decoration:
-                        const InputDecoration(labelText: 'Height (cm)'),
+                            const InputDecoration(labelText: 'Height (cm)'),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your height';
@@ -106,12 +106,14 @@ class CaloriesCalculator extends StatelessWidget {
                 const SizedBox(height: 40),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (
-                        context) => const BmiCalculator()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BmiCalculator()));
                   },
                   child: Container(
                     margin:
-                    EdgeInsets.only(left: DynamicSize.width(0.2, context)),
+                        EdgeInsets.only(left: DynamicSize.width(0.2, context)),
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
                     height: DynamicSize.height(0.07, context),

@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/screen/tab_screen.dart';
 
-import './patients_profile.dart';
 import './doctor_profile_screen.dart';
+import './patients_profile.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -98,7 +95,7 @@ class WelcomeScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                           DoctorProfileScreen()));
+                                            DoctorProfileScreen()));
                               },
                               child: const Text(
                                 "Doctor",
@@ -128,7 +125,7 @@ class WelcomeScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                             PatientProfile()));
+                                            PatientProfile()));
                               },
                               child: const Text(
                                 "Patient",
@@ -179,7 +176,10 @@ class WelcomeScreen extends StatelessWidget {
                       Center(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabScreen()));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TabScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
