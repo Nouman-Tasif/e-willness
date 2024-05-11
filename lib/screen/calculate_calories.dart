@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/calories_viewmodel.dart';
 import 'package:provider/provider.dart';
+
+import 'bmi_calculator.dart';
 
 class CaloriesCalculator extends StatelessWidget {
   CaloriesCalculator({super.key});
@@ -42,7 +45,7 @@ class CaloriesCalculator extends StatelessWidget {
                         controller: viewmodel.weightController,
                         keyboardType: TextInputType.number,
                         decoration:
-                            const InputDecoration(labelText: 'Weight (kg)'),
+                        const InputDecoration(labelText: 'Weight (kg)'),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your weight';
@@ -54,7 +57,7 @@ class CaloriesCalculator extends StatelessWidget {
                         controller: viewmodel.heightController,
                         keyboardType: TextInputType.number,
                         decoration:
-                            const InputDecoration(labelText: 'Height (cm)'),
+                        const InputDecoration(labelText: 'Height (cm)'),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your height';
@@ -100,64 +103,30 @@ class CaloriesCalculator extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                Form(
-                  key: _bmiFormKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFormField(
-                        controller: viewmodel.weight,
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            const InputDecoration(labelText: 'Weight (kg)'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your weight';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: viewmodel.height,
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            const InputDecoration(labelText: 'Height (cm)'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your height';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_bmiFormKey.currentState!.validate()) {
-                            double weight = double.parse(viewmodel.weight.text);
-                            double height =
-                                double.parse(viewmodel.height.text) /
-                                    100; // convert cm to m
-                            double bmi = weight / (height * height);
-
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Your BMI'),
-                                content: Text('Your BMI is: $bmi'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text('Calculate BMI'),
-                      ),
-                    ],
+                const SizedBox(height: 40),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (
+                        context) => const BmiCalculator()));
+                  },
+                  child: Container(
+                    margin:
+                    EdgeInsets.only(left: DynamicSize.width(0.2, context)),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20),
+                    height: DynamicSize.height(0.07, context),
+                    width: DynamicSize.width(0.5, context),
+                    decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: const Text(
+                      "Calculate BMI",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
                   ),
                 ),
               ],
