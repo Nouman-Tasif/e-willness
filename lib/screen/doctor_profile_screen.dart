@@ -4,15 +4,31 @@ import 'package:myproject/viewmodel/doctor_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class DoctorProfileScreen extends StatefulWidget {
+  String profileName;
+
+  DoctorProfileScreen({super.key, required this.profileName});
+
   @override
   State<DoctorProfileScreen> createState() => _DoctorProfileScreenState();
 }
 
 class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  final doctorProfileViewModel = DoctorProfileViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DoctorProfileViewModel>(context, listen: false)
+          .loadProfileData(widget.profileName);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("----------${doctorProfileViewModel.profileImageUrl}");
+
     return Consumer<DoctorProfileViewModel>(builder: (builder, viewModel, _) {
       return SafeArea(
         child: Scaffold(
@@ -27,7 +43,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             height: DynamicSize.height(0.9, context),
             width: DynamicSize.width(0.97, context),
             child: SingleChildScrollView(
-              child:  Column(
+              child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,8 +73,10 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         radius: 50.0,
                         backgroundImage: viewModel.selectedImage != null
                             ? FileImage(viewModel.selectedImage!)
-                            : const AssetImage("assets/images/profileimage.jpg")
-                                as ImageProvider,
+                            : (viewModel.profileImageUrl != null
+                                ? NetworkImage(viewModel.profileImageUrl!)
+                                : const AssetImage("assets/images/avatar1.jpeg")
+                                    as ImageProvider),
                       ),
                       Positioned(
                         bottom: 0,
@@ -75,7 +93,8 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                   const SizedBox(height: 8.0),
                   const Text(
                     'Select Profile Picture',
-                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   Form(
                     key: _formKey,
@@ -123,7 +142,8 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -133,7 +153,9 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             ),
                             child: SingleChildScrollView(
                               child: DropdownButtonFormField<List<String>>(
-                                value: viewModel.selectedDiseases.isNotEmpty ? viewModel.selectedDiseases : null,
+                                value: viewModel.selectedDiseases.isNotEmpty
+                                    ? viewModel.selectedDiseases
+                                    : null,
                                 onChanged: (newValue) {
                                   if (newValue != null) {
                                     viewModel.selectedDiseases = newValue;
@@ -146,21 +168,27 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                     child: SizedBox(
                                       width: double.infinity,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: List.generate(
                                           viewModel.doctorSpecialist.length,
-                                              (index) {
-                                            final disease = viewModel.doctorSpecialist[index];
-                                            final isSelected = viewModel.selectedDiseases.contains(disease);
+                                          (index) {
+                                            final disease = viewModel
+                                                .doctorSpecialist[index];
+                                            final isSelected = viewModel
+                                                .selectedDiseases
+                                                .contains(disease);
 
                                             return CheckboxListTile(
                                               title: Text(disease),
                                               value: isSelected,
                                               onChanged: (checked) {
                                                 if (checked!) {
-                                                  viewModel.selectedDiseases.add(disease);
+                                                  viewModel.selectedDiseases
+                                                      .add(disease);
                                                 } else {
-                                                  viewModel.selectedDiseases.remove(disease);
+                                                  viewModel.selectedDiseases
+                                                      .remove(disease);
                                                 }
                                                 viewModel.updateState();
                                               },
@@ -173,14 +201,17 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                 ],
                                 decoration: const InputDecoration(
                                   labelText: 'Select Specialist',
-                                  contentPadding: EdgeInsets.only(top: 10, bottom: 20),
+                                  contentPadding:
+                                      EdgeInsets.only(top: 10, bottom: 20),
                                   border: InputBorder.none,
                                 ),
                                 isExpanded: true,
                                 selectedItemBuilder: (BuildContext context) {
-                                  return viewModel.selectedDiseases.map<Widget>((String disease) {
+                                  return viewModel.selectedDiseases
+                                      .map<Widget>((String disease) {
                                     return Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 2),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2),
                                       child: Text(disease),
                                     );
                                   }).toList();
@@ -189,10 +220,6 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             ),
                           ),
                         ),
-
-
-
-
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 20),
@@ -242,7 +269,14 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             onPressed: () {
                               if (_formKey.currentState != null &&
                                   _formKey.currentState!.validate()) {
-                                viewModel.saveDoctorProfile();
+                                if (viewModel.selectedImage != null) {
+                                  viewModel.saveDoctorProfile(
+                                      widget.profileName.toString(),
+                                      viewModel.selectedImage);
+                                } else {
+                                  viewModel.saveDoctorProfile(
+                                      widget.profileName.toString(), null);
+                                }
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -255,7 +289,8 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             ),
                             child: const Text(
                               "Create Profile",
-                              style: TextStyle(fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),

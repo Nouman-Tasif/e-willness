@@ -7,6 +7,7 @@ import 'package:myproject/screen/login_screen.dart';
 import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../authservices/authservices.dart';
 import '../widgets/disease_customwidgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,8 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
-                      .collection('users')
+                      .collection("Doctor")
                       .doc(DynamicSize().user!.uid)
+
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
@@ -69,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            "${userData!['username']}",
+                            "${userData?['fullName']}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -104,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final user = FirebaseAuth.instance.currentUser;
                   if (user != null) {
                     try {
+                      await AuthService().logout();
                       await FirebaseAuth.instance.signOut();
                       Navigator.pushReplacement(
                         context,

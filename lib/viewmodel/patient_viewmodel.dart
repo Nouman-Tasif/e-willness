@@ -11,8 +11,8 @@ class PatientViewModel with ChangeNotifier {
   final fullName = TextEditingController();
   final dob = TextEditingController();
   final age = TextEditingController();
-  String? selectedDisease;
 
+  List<String> selectedDiseases = [];
   List<String> patientDisease = [
     'flu',
     'bronchitis',
@@ -115,14 +115,16 @@ class PatientViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  savePatientData() {
+  savePatientData(String name) {
     FirebaseFirestore.instance
-        .collection('profiles')
-        .doc(DynamicSize().user!.uid)
+        .collection(name)
+        .doc(DynamicSize().user?.uid) // Assuming each user can have a unique doctor profile
         .set({
       'fullName': fullName.text,
       'dob': dob.text,
-      'patientDisease': selectedDisease,
+      'age':age.text,
+      'profile':name,
+      'disease': selectedDiseases,
     }).then((value) {
       // Success, do something if needed
       Fluttertoast.showToast(msg: "Patient profile created successfully");

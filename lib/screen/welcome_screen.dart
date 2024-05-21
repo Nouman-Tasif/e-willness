@@ -5,9 +5,15 @@ import 'package:myproject/screen/tab_screen.dart';
 import './doctor_profile_screen.dart';
 import './patients_profile.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+ String profileName = " ";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,12 +96,15 @@ class WelcomeScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                // Handle click action
+                                setState(() {
+                                  profileName = "Doctor";
+                                });
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            DoctorProfileScreen()));
+                                            DoctorProfileScreen(profileName: profileName,)));
                               },
                               child: const Text(
                                 "Doctor",
@@ -121,11 +130,14 @@ class WelcomeScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
+                                setState(() {
+                                  profileName = "Patient";
+                                });
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            PatientProfile()));
+                                            PatientProfile(profileName: profileName)));
                               },
                               child: const Text(
                                 "Patient",

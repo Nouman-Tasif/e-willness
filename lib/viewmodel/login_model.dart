@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/forgot_password.dart';
 
+import '../authservices/authservices.dart';
 import '../screen/welcome_screen.dart';
 import '../widgets/toast_message.dart';
 
@@ -22,10 +23,11 @@ class LoginViewModel with ChangeNotifier {
     _auth
         .signInWithEmailAndPassword(
             email: email.text.toString(), password: password.text.toString())
-        .then((value) {
+        .then((value) async {
       isPasswordCorrect = false;
       email.text = "";
       password.text = "";
+      await AuthService().login();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     }).onError((error, stackTrace) {

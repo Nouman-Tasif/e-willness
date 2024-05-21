@@ -4,6 +4,8 @@ import 'package:myproject/viewmodel/patient_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class PatientProfile extends StatelessWidget {
+  String? profileName;
+  PatientProfile({super.key, required this.profileName});
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -151,35 +153,72 @@ class PatientProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: Colors.grey),
                             ),
-                            child: DropdownButtonFormField<String>(
-                              value: viewModel.selectedDisease,
-                              validator: (value) {
-                                if (value != null && value.isNotEmpty) {
-                                  return null;
-                                }
-                                return "Select Disease";
-                              },
-                              onChanged: (newValue) {
-                                if (newValue != null) {
-                                  viewModel.selectedDisease = newValue;
-                                  viewModel.updateState();
-                                }
-                              },
-                              items: viewModel.patientDisease.map((disease) {
-                                return DropdownMenuItem<String>(
-                                  value: disease,
-                                  child: Text(disease),
-                                );
-                              }).toList(),
-                              decoration: const InputDecoration(
-                                labelText: 'Select a Disease',
-                                contentPadding:
-                                    EdgeInsets.only(top: 10, bottom: 20),
-                                // Added to remove extra padding
-                                border: InputBorder.none,
+                            child: SingleChildScrollView(
+                              child: DropdownButtonFormField<List<String>>(
+                                value: viewModel.selectedDiseases.isNotEmpty
+                                    ? viewModel.selectedDiseases
+                                    : null,
+                                onChanged: (newValue) {
+                                  if (newValue != null) {
+                                    viewModel.selectedDiseases = newValue;
+                                    viewModel.updateState();
+                                  }
+                                },
+                                items: [
+                                  DropdownMenuItem<List<String>>(
+                                    value: viewModel.selectedDiseases,
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: List.generate(
+                                          viewModel.patientDisease.length,
+                                              (index) {
+                                            final disease = viewModel
+                                                .patientDisease[index];
+                                            final isSelected = viewModel
+                                                .selectedDiseases
+                                                .contains(disease);
+
+                                            return CheckboxListTile(
+                                              title: Text(disease),
+                                              value: isSelected,
+                                              onChanged: (checked) {
+                                                if (checked!) {
+                                                  viewModel.selectedDiseases
+                                                      .add(disease);
+                                                } else {
+                                                  viewModel.selectedDiseases
+                                                      .remove(disease);
+                                                }
+                                                viewModel.updateState();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                decoration: const InputDecoration(
+                                  labelText: 'Select Specialist',
+                                  contentPadding:
+                                  EdgeInsets.only(top: 10, bottom: 20),
+                                  border: InputBorder.none,
+                                ),
+                                isExpanded: true,
+                                selectedItemBuilder: (BuildContext context) {
+                                  return viewModel.selectedDiseases
+                                      .map<Widget>((String disease) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2),
+                                      child: Text(disease),
+                                    );
+                                  }).toList();
+                                },
                               ),
-                              isExpanded:
-                                  true, // Added to allow the dropdown to expand horizontally
                             ),
                           ),
                         ),
@@ -191,7 +230,7 @@ class PatientProfile extends StatelessWidget {
                               onPressed: () {
                                 if (_formKey.currentState != null &&
                                     _formKey.currentState!.validate()) {
-                                  viewModel.savePatientData();
+                                  viewModel.savePatientData(profileName.toString());
                                 }
                               },
                               style: ElevatedButton.styleFrom(
