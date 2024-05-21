@@ -50,6 +50,8 @@ dependencies:
   pretty_gauge:
   share_plus:
   timezone:
+  shared_preferences:
+  firebase_app_check:
 
 
 
