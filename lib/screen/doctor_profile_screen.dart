@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/doctor_viewmodel.dart';
 import 'package:provider/provider.dart';
-
+import 'package:intl/intl.dart';
 class DoctorProfileScreen extends StatefulWidget {
   String profileName;
 
@@ -120,24 +120,27 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                           child: TextFormField(
-                            validator: (value) {
-                              if (value != null && value.isNotEmpty) {
-                                return null;
-                              }
-                              return "Enter date of Birth";
-                            },
                             controller: viewModel.dob,
+                            readOnly: true, // Make the TextFormField read-only
+                            onTap: () async {
+                              final DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+
+                              if (pickedDate != null) {
+                                // Format the date as per your requirements
+                                String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                viewModel.dob.text = formattedDate;
+                              }
+                            },
                             decoration: InputDecoration(
                               hintText: 'Date of Birth',
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.calendar_today_sharp),
-                                onPressed: () {
-                                  // Handle icon pressed
-                                },
-                              ),
+                              suffixIcon: Icon(Icons.calendar_today_sharp),
                             ),
                           ),
                         ),

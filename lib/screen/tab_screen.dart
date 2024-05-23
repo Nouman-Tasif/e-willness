@@ -7,6 +7,8 @@ import 'package:myproject/screen/records_screen.dart';
 import 'package:myproject/viewmodel/tab_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import 'notification_screen.dart';
+
 class TabScreen extends StatelessWidget {
   const TabScreen({super.key});
 
@@ -21,7 +23,7 @@ class TabScreen extends StatelessWidget {
               HomeScreen(),
               DoctorRecommendation(),
               CaloriesCalculator(),
-              const RecordScreen(),
+              NotificationScreen(),
               const ProfileScreen(), // New tab
             ],
           ),

@@ -52,6 +52,8 @@ dependencies:
   timezone:
   shared_preferences:
   firebase_app_check:
+  intl:
+  flutter_local_notifications:
 
 
 

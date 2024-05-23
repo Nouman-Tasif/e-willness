@@ -1,6 +1,7 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myproject/screen/splash_screen.dart';
 import 'package:myproject/viewmodel/calories_viewmodel.dart';
 import 'package:myproject/viewmodel/doctor_viewmodel.dart';
@@ -15,8 +16,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  runApp(const MyApp());
+   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

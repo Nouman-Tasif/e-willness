@@ -196,7 +196,7 @@ class DoctorProfileViewModel with ChangeNotifier {
     }
     FirebaseFirestore.instance
         .collection('Doctor')
-        .doc(user!.uid) // Assuming each user can have a unique doctor profile
+        .doc(FirebaseAuth.instance.currentUser?.uid) // Assuming each user can have a unique doctor profile
         .set({
       'fullName': fullName.text,
       'dob': dob.text,
