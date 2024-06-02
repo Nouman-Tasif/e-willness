@@ -3,7 +3,6 @@ import 'package:myproject/screen/calculate_calories.dart';
 import 'package:myproject/screen/doctor_recomendation.dart';
 import 'package:myproject/screen/home_screen.dart';
 import 'package:myproject/screen/profile_screen.dart';
-import 'package:myproject/screen/records_screen.dart';
 import 'package:myproject/viewmodel/tab_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +22,8 @@ class TabScreen extends StatelessWidget {
               HomeScreen(),
               DoctorRecommendation(),
               CaloriesCalculator(),
-              NotificationScreen(),
-              const ProfileScreen(), // New tab
+              NotificationScreen( id: '',),
+               ProfileScreen(), // New tab
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -38,7 +37,7 @@ class TabScreen extends StatelessWidget {
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.search),
-                label: 'Find',
+                label: 'Appointment',
               ),
               BottomNavigationBarItem(
                 icon: Image.asset(
@@ -51,10 +50,10 @@ class TabScreen extends StatelessWidget {
                 icon: Icon(Icons.notifications_sharp),
                 label: 'Notification',
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
+              // const BottomNavigationBarItem(
+              //   icon: Icon(Icons.person),
+              //   label: 'Profile',
+              // ),
             ],
           ),
         );

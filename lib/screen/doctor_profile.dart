@@ -86,9 +86,14 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           children: [
                             const Icon(Icons.local_hospital, size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
-                            Text(
-                              doctorData['disease'].toString(),
-                              style: const TextStyle(fontSize: 16),
+                            Expanded(
+                              child: Text(
+                                doctorData['disease'].toString(),
+                                overflow: TextOverflow.visible,
+                                softWrap: true,
+                                 
+                                style: const TextStyle(fontSize: 16),
+                              ),
                             ),
                           ],
                         ),

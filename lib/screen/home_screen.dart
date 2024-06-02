@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/screen/login_screen.dart';
+import 'package:myproject/screen/profile_screen.dart';
 import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: const Icon(Icons.person),
                 title: const Text('My Profile'),
                 onTap: () {
-                  // Navigate to My Profile screen
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
                 },
               ),
               ListTile(
