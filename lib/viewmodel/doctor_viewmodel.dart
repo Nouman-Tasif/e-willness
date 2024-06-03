@@ -4,16 +4,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DoctorProfileViewModel with ChangeNotifier {
+  List<String> availableDays = [];
   final fullName = TextEditingController();
   final dob = TextEditingController();
   final specialist = TextEditingController();
   final address = TextEditingController();
   final qualification = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
+  TimeOfDay? startTime;
+  TimeOfDay? endTime;
 
   List<String> selectedDiseases = [];
 
@@ -204,6 +208,9 @@ class DoctorProfileViewModel with ChangeNotifier {
       'address': address.text,
       'Qualification': qualification.text,
       'profileImage': imageURL ?? '',
+      'Available' : availableDays.toString(),
+      'startTime'  :startTime.toString(),
+      'endTime' : endTime.toString()
     }).then((value) {
       // Success, do something if needed
       Fluttertoast.showToast(msg: "profile created Successfully");

@@ -3,6 +3,9 @@ import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/doctor_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+
+import '../constants/daysofweek.dart';
+
 class DoctorProfileScreen extends StatefulWidget {
   String profileName;
 
@@ -25,10 +28,23 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
     });
   }
 
+  Future<void> _selectTime(BuildContext context, bool isStartTime) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      if (isStartTime) {
+        doctorProfileViewModel.startTime = picked;
+      } else {
+        doctorProfileViewModel.endTime = picked;
+      }
+      doctorProfileViewModel.updateState();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    debugPrint("----------${doctorProfileViewModel.profileImageUrl}");
-
     return Consumer<DoctorProfileViewModel>(builder: (builder, viewModel, _) {
       return SafeArea(
         child: Scaffold(
@@ -74,9 +90,9 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         backgroundImage: viewModel.selectedImage != null
                             ? FileImage(viewModel.selectedImage!)
                             : (viewModel.profileImageUrl != null
-                                ? NetworkImage(viewModel.profileImageUrl!)
-                                : const AssetImage("assets/images/avatar1.jpeg")
-                                    as ImageProvider),
+                            ? NetworkImage(viewModel.profileImageUrl!)
+                            : const AssetImage("assets/images/avatar1.jpeg")
+                        as ImageProvider),
                       ),
                       Positioned(
                         bottom: 0,
@@ -94,7 +110,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                   const Text(
                     'Select Profile Picture',
                     style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   Form(
                     key: _formKey,
@@ -172,10 +188,10 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                       width: double.infinity,
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: List.generate(
                                           viewModel.doctorSpecialist.length,
-                                          (index) {
+                                              (index) {
                                             final disease = viewModel
                                                 .doctorSpecialist[index];
                                             final isSelected = viewModel
@@ -205,7 +221,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                 decoration: const InputDecoration(
                                   labelText: 'Select Specialist',
                                   contentPadding:
-                                      EdgeInsets.only(top: 10, bottom: 20),
+                                  EdgeInsets.only(top: 10, bottom: 20),
                                   border: InputBorder.none,
                                 ),
                                 isExpanded: true,
@@ -265,6 +281,98 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                                 },
                               ),
                             ),
+                          ),
+                        ),
+                        // New Dropdown for Available Days
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                          child: DropdownButtonFormField<List<String>>(
+                            value: viewModel.availableDays.isNotEmpty ? viewModel.availableDays : null,
+                            onChanged: (newValue) {
+                              if (newValue != null) {
+                                viewModel.availableDays = newValue;
+                                viewModel.updateState();
+                              }
+                            },
+                            items: [
+                              DropdownMenuItem<List<String>>(
+                                value: viewModel.availableDays,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: List.generate(
+                                      Constants.daysOfWeek.length,
+                                          (index) {
+                                        final day = Constants.daysOfWeek[index];
+                                        final isSelected = viewModel.availableDays.contains(day);
+
+                                        return CheckboxListTile(
+                                          title: Text(day),
+                                          value: isSelected,
+                                          onChanged: (checked) {
+                                            if (checked!) {
+                                              viewModel.availableDays.add(day);
+                                            } else {
+                                              viewModel.availableDays.remove(day);
+                                            }
+                                            viewModel.updateState();
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                            decoration: const InputDecoration(
+                              labelText: 'Select Available Days',
+                              contentPadding: EdgeInsets.only(top: 10, bottom: 20),
+                              border: InputBorder.none,
+                            ),
+                            isExpanded: true,
+                            selectedItemBuilder: (BuildContext context) {
+                              return viewModel.availableDays.map<Widget>((String day) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 2),
+                                  child: Text(day),
+                                );
+                              }).toList();
+                            },
+                          ),
+                        ),
+                        // New Time Picker for Available Time Slots
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  title: const Text("Start Time"),
+                                  subtitle: Text(
+                                    viewModel.startTime != null
+                                        ? viewModel.startTime!.format(context)
+                                        : "Select Start Time",
+                                  ),
+                                  onTap: () {
+                                    _selectTime(context, true);
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: const Text("End Time"),
+                                  subtitle: Text(
+                                    viewModel.endTime != null
+                                        ? viewModel.endTime!.format(context)
+                                        : "Select End Time",
+                                  ),
+                                  onTap: () {
+                                    _selectTime(context, false);
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Center(

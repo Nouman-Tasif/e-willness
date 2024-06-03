@@ -192,6 +192,17 @@ class DoctorRecommendation extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.schedule, size: 16, color: Colors.teal),
+                            const SizedBox(width: 8),
+                            Text(
+                              doctorData['Available'],
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
