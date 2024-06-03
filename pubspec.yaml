@@ -54,7 +54,7 @@ dependencies:
   firebase_app_check:
   intl:
   flutter_local_notifications:
-
+  table_calendar:
 
 
 
