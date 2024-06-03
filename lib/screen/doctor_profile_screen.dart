@@ -283,7 +283,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueGrey,
+                              backgroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 12),
                               shape: RoundedRectangleBorder(
@@ -293,7 +293,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                             child: const Text(
                               "Create Profile",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  TextStyle(fontSize: 20, color: Colors.black),
                             ),
                           ),
                         ),

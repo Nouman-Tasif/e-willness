@@ -6,7 +6,8 @@ import './doctor_profile_screen.dart';
 import './patients_profile.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  String role;
+   WelcomeScreen({super.key,required this.role});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -14,8 +15,10 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
  String profileName = " ";
+
   @override
   Widget build(BuildContext context) {
+    debugPrint("-----------------${widget.role}");
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -54,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         padding: EdgeInsets.only(top: 20, bottom: 8),
                         child: Center(
                           child: Text(
-                            "Welcome",
+                            "Welcome to App",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w800,
@@ -65,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                       const Center(
                         child: Text(
-                          "please select your",
+                          "please add your",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w800,
@@ -78,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         padding: EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            "user category :",
+                            "personal Data",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w800,
@@ -94,7 +97,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
+                            widget.role == 'Doctor' ?GestureDetector(
                               onTap: () {
                                 setState(() {
                                   profileName = "Doctor";
@@ -114,21 +117,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15.0),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Text(
-                              "Or",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15.0),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            GestureDetector(
+                            ):SizedBox(),
+
+                            widget.role == 'Patient' ?GestureDetector(
                               onTap: () {
                                 setState(() {
                                   profileName = "Patient";
@@ -147,7 +138,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15.0),
                               ),
-                            ),
+                            ):SizedBox(),
                           ],
                         ),
                       ),
@@ -191,7 +182,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const TabScreen()));
+                                    builder: (context) =>  TabScreen(role: widget.role,)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,

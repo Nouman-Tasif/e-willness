@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/patient_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -100,24 +101,27 @@ class PatientProfile extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                           child: TextFormField(
-                            validator: (value) {
-                              if (value != null && value.isNotEmpty) {
-                                return null;
-                              }
-                              return "Enter Date of Birth";
-                            },
                             controller: viewModel.dob,
-                            decoration: InputDecoration(
+                            readOnly: true, // Make the TextFormField read-only
+                            onTap: () async {
+                              final DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+
+                              if (pickedDate != null) {
+                                // Format the date as per your requirements
+                                String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                viewModel.dob.text = formattedDate;
+                              }
+                            },
+                            decoration: const InputDecoration(
                               hintText: 'Date of Birth',
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.calendar_today_sharp),
-                                onPressed: () {
-                                  // Handle icon pressed
-                                },
-                              ),
+                              suffixIcon: Icon(Icons.calendar_today_sharp),
                             ),
                           ),
                         ),
@@ -234,7 +238,7 @@ class PatientProfile extends StatelessWidget {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueGrey,
+                                backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12),
                                 shape: RoundedRectangleBorder(
@@ -244,7 +248,7 @@ class PatientProfile extends StatelessWidget {
                               child: const Text(
                                 "Create Profile",
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
+                                    fontSize: 20, color: Colors.black),
                               ),
                             ),
                           ),

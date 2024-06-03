@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../constants/constatsvalue.dart';
 
 class ProfileScreen extends StatelessWidget {
+  String role;
+  ProfileScreen({super.key, required this.role});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
-            .collection("Doctor")
+            .collection(role ?? "")
             .doc(DynamicSize().user!.uid)
 
             .get(),

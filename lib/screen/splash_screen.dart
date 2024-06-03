@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/home_screen.dart';
 import 'package:myproject/screen/signup_screen.dart';
@@ -15,19 +17,47 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String role = "";
   @override
   void initState() {
     super.initState();
    _loadScreen();
   }
+  Future<Map<String, dynamic>?> fetchUserData() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          role = userDoc['role'];
+          return userDoc.data() as Map<String, dynamic>?;
+        } else {
+          print('User document does not exist');
+        }
+      } else {
+        print('No user is signed in');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+
+    return null;
+  }
   Future<void> _loadScreen() async {
+    fetchUserData();
+    debugPrint("---role-----${role}");
     final isLoggedIn = await AuthService().isLoggedIn();
     Timer(
       const Duration(seconds: 3),
           () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => isLoggedIn ? WelcomeScreen() : SignUpScreen(),
+          builder: (context) => isLoggedIn ? WelcomeScreen(role: role,) : SignUpScreen(),
         ),
       ),
     );
@@ -36,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets/images/splash_screen.jpeg"),
+        child: Image.asset("assets/images/splash_newlogo.jpeg"),
       ),
     );
   }

@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 import 'notification_screen.dart';
 
 class TabScreen extends StatelessWidget {
-  const TabScreen({super.key});
+  String role;
+   TabScreen({super.key,required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,11 @@ class TabScreen extends StatelessWidget {
           body: IndexedStack(
             index: viewModel.selectedTabIndex,
             children: [
-              HomeScreen(),
-              DoctorRecommendation(),
+              HomeScreen(role : role),
+              DoctorRecommendation( role: role),
               CaloriesCalculator(),
               NotificationScreen( id: '',),
-               ProfileScreen(), // New tab
+               ProfileScreen(role : role), // New tab
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

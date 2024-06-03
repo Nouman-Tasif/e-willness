@@ -32,23 +32,20 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
   void _bookAppointment() {
     if (_selectedDate != null) {
-      // Save the appointment details to Firebase
       FirebaseFirestore.instance
-          .collection('Appointment')
-          .doc(FirebaseAuth.instance.currentUser?.uid ?? '')
-          .set({
-        'userId': widget.doctorId,
+          .collection('appointments')
+          .add({
+        'doctorId': widget.doctorId,
+        'patientId': FirebaseAuth.instance.currentUser?.uid ?? '',
         'appointmentDate': _selectedDate,
         'createdAt': Timestamp.now(),
       }).then((_) {
-        // Show a success message or navigate to a different screen
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Appointment booked successfully!'),
           ),
         );
       }).catchError((error) {
-        // Handle the error case
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error booking appointment: $error'),
@@ -56,7 +53,6 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
         );
       });
     } else {
-      // Show an error message if the user hasn't selected a date
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please select a date for your appointment.'),
@@ -64,6 +60,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

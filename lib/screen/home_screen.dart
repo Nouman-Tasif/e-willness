@@ -12,7 +12,8 @@ import '../authservices/authservices.dart';
 import '../widgets/disease_customwidgets.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  String role;
+  HomeScreen({Key? key,required this.role}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
-                      .collection("Doctor")
+                      .collection(widget.role)
                       .doc(DynamicSize().user!.uid)
 
                       .get(),
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: const Icon(Icons.person),
                 title: const Text('My Profile'),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(role: widget.role)));
                 },
               ),
               ListTile(
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
+                          builder: (context) => LoginScreen(role: "",),
                         ),
                       );
                       // Navigate to the login screen or any other desired screen

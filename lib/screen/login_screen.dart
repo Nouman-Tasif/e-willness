@@ -6,13 +6,15 @@ import 'package:provider/provider.dart';
 import './signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  String role;
+  LoginScreen({super.key,required this.role});
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginViewModel>(builder: (context, viewmodel, _) {
+
       return SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -191,6 +193,7 @@ class LoginScreen extends StatelessWidget {
                                       onPressed: () {
                                         if (_formKey.currentState != null &&
                                             _formKey.currentState!.validate()) {
+                                          viewmodel.role =role;
                                           viewmodel.registerMethod(context);
                                         }
                                       },

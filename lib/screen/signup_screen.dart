@@ -84,13 +84,15 @@ class SignUpScreen extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
+                                            builder: (context) => LoginScreen(
+                                                  role: viewModel.selectedRole
+                                                      .toString(),
+                                                )));
                                   },
                                   child: RichText(
                                       text: const TextSpan(children: [
                                     TextSpan(
-                                      text: "Already Regester ? ",
+                                      text: "Already Registered? ",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w800,
@@ -207,6 +209,47 @@ class SignUpScreen extends StatelessWidget {
                                               return null;
                                             }
                                             return "Enter Password";
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: DropdownButtonFormField<String>(
+                                          value: viewModel.selectedRole,
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: "Doctor",
+                                              child: Text("Doctor"),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: "Patient",
+                                              child: Text("Patient"),
+                                            ),
+                                          ],
+                                          onChanged: (value) {
+                                            viewModel.selectedRole = value!;
+                                            viewModel.updateStates();
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText: "Select role",
+                                            hintStyle: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                          ),
+                                          validator: (value) {
+                                            if (value != null &&
+                                                value.isNotEmpty) {
+                                              return null;
+                                            }
+                                            return "Select a role";
                                           },
                                         ),
                                       ),

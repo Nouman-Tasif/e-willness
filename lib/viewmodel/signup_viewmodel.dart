@@ -12,21 +12,24 @@ class SignUPViewModel with ChangeNotifier {
 
   final password = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? selectedRole;
 
   updateStates() {
     notifyListeners();
   }
 
-  registerMethod(BuildContext context) {
+  void registerMethod(BuildContext context) {
     _auth
         .createUserWithEmailAndPassword(
             email: email.text.toString(), password: password.text.toString())
         .then((value) {
       FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
         'username': username.text.toString(),
+        'email': email.text.toString(),
+        'role': selectedRole.toString(),
       });
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => LoginScreen(role: selectedRole.toString())));
     }).onError((error, stackTrace) {
       flutterToastMessage(error.toString());
     });

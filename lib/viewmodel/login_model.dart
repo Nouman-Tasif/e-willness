@@ -11,6 +11,7 @@ class LoginViewModel with ChangeNotifier {
   final password = TextEditingController();
   bool isPasswordCorrect = false;
   bool isObscure = true;
+  String role = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void initialize() {}
@@ -29,7 +30,7 @@ class LoginViewModel with ChangeNotifier {
       password.text = "";
       await AuthService().login();
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+          context, MaterialPageRoute(builder: (context) =>  WelcomeScreen(role: role,)));
     }).onError((error, stackTrace) {
       isPasswordCorrect = true;
 
