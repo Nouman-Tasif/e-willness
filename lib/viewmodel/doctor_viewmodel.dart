@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -151,7 +151,7 @@ class DoctorProfileViewModel with ChangeNotifier {
     Map<String, dynamic>? profileData = await fetchDoctorProfile(profileName);
     if (profileData != null) {
       profileImageUrl = profileData['profileImage'] as String?;
-      debugPrint("------profileimageurl------${profileImageUrl}");
+
 
       notifyListeners();
     }
@@ -183,7 +183,7 @@ class DoctorProfileViewModel with ChangeNotifier {
   }
   String? imageURL;
   saveDoctorProfile(String doctor, File? selectedImage) async {
-    debugPrint("-------------------${doctor}");
+
     if (user == null) {
       Fluttertoast.showToast(msg: "User not logged in");
       return;

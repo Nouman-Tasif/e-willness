@@ -8,6 +8,8 @@ import './login_screen.dart';
 class SignUpScreen extends StatelessWidget {
   final _formField = GlobalKey<FormState>();
 
+  SignUpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SignUPViewModel>(builder: (context, viewModel, _) {

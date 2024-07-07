@@ -54,8 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.blue,
                 ),
                 child: FutureBuilder<DocumentSnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection(widget.role)
+                  future: widget.role != null ?FirebaseFirestore.instance
+                      .collection(widget.role ?? "Doctor")
+                      .doc(DynamicSize().user!.uid)
+
+                      .get():FirebaseFirestore.instance
+                      .collection("Doctor")
                       .doc(DynamicSize().user!.uid)
 
                       .get(),

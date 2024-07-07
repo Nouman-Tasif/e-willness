@@ -9,7 +9,7 @@ class CaloriesCalculator extends StatelessWidget {
   CaloriesCalculator({super.key});
 
   final _caloriesFormKey = GlobalKey<FormState>();
-  final _bmiFormKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class CaloriesCalculator extends StatelessWidget {
                     margin:
                         EdgeInsets.only(left: DynamicSize.width(0.2, context)),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     height: DynamicSize.height(0.07, context),
                     width: DynamicSize.width(0.5, context),
                     decoration: const BoxDecoration(

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:myproject/constants/constatsvalue.dart';
+
 
 class AppointmentBookingScreen extends StatefulWidget {
   final String doctorId;
@@ -41,7 +41,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
         'createdAt': Timestamp.now(),
       }).then((_) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Appointment booked successfully!'),
           ),
         );
@@ -54,7 +54,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Please select a date for your appointment.'),
         ),
       );
@@ -67,7 +67,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-        title: Text('Book Appointment'),
+        title: const Text('Book Appointment'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -78,7 +78,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             ElevatedButton(
               onPressed: _selectDate,
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal,
+                backgroundColor: Colors.teal,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

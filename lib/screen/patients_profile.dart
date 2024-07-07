@@ -4,7 +4,8 @@ import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/viewmodel/patient_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-class PatientProfile extends StatelessWidget {
+class
+PatientProfile extends StatelessWidget {
   String? profileName;
   PatientProfile({super.key, required this.profileName});
   final _formKey = GlobalKey<FormState>();

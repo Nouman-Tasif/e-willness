@@ -94,7 +94,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                           //Calculate BMI here
                           calculateBmi();
 
-                          Future.delayed(Duration(seconds: 1), () {
+                          Future.delayed(const Duration(seconds: 1), () {
                             setState(() {
                               _isFinished = true;
                             });

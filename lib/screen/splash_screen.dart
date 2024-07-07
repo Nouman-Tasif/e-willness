@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myproject/screen/home_screen.dart';
+
 import 'package:myproject/screen/signup_screen.dart';
 import 'package:myproject/screen/welcome_screen.dart';
 
@@ -37,20 +37,20 @@ class _SplashScreenState extends State<SplashScreen> {
           role = userDoc['role'];
           return userDoc.data() as Map<String, dynamic>?;
         } else {
-          print('User document does not exist');
+          debugPrint('User document does not exist');
         }
       } else {
-        print('No user is signed in');
+        debugPrint('No user is signed in');
       }
     } catch (e) {
-      print('Error fetching user data: $e');
+      debugPrint('Error fetching user data: $e');
     }
 
     return null;
   }
   Future<void> _loadScreen() async {
     fetchUserData();
-    debugPrint("---role-----${role}");
+
     final isLoggedIn = await AuthService().isLoggedIn();
     Timer(
       const Duration(seconds: 3),

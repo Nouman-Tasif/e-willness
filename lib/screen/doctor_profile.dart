@@ -134,12 +134,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         ),
                         const SizedBox(height: 8),
                         Row(
-                          children: [
-                            const Icon(Icons.timelapse, size: 16, color: Colors.teal),
-                            const SizedBox(width: 8),
+                          children: const [
+                             Icon(Icons.timelapse, size: 16, color: Colors.teal),
+                             SizedBox(width: 8),
                             Text(
                               '09:00am to 6:00pm',
-                              style: const TextStyle(fontSize: 16),
+                              style:  TextStyle(fontSize: 16),
                             ),
                           ],
                         ),

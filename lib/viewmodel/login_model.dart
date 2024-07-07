@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/forgot_password.dart';
@@ -11,7 +12,7 @@ class LoginViewModel with ChangeNotifier {
   final password = TextEditingController();
   bool isPasswordCorrect = false;
   bool isObscure = true;
-  String role = "";
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void initialize() {}
@@ -20,7 +21,7 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void registerMethod(BuildContext context) {
+  void loginMethod(BuildContext context) {
     _auth
         .signInWithEmailAndPassword(
             email: email.text.toString(), password: password.text.toString())
@@ -28,12 +29,21 @@ class LoginViewModel with ChangeNotifier {
       isPasswordCorrect = false;
       email.text = "";
       password.text = "";
+
+      // Fetch user data from Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(value.user!.uid)
+          .get();
+
+      String role = userDoc.get('role');
+
       await AuthService().login();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) =>  WelcomeScreen(role: role,)));
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => WelcomeScreen(role: role)));
     }).onError((error, stackTrace) {
       isPasswordCorrect = true;
-
       flutterToastMessage(error.toString());
     });
 

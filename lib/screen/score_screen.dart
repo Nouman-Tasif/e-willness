@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:pretty_gauge/pretty_gauge.dart';
 import 'package:share_plus/share_plus.dart';

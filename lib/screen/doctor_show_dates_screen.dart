@@ -47,10 +47,10 @@ class _DoctorShowAppointmentsScreenState extends State<DoctorShowAppointmentsScr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Appointments'),
+        title: const Text('My Appointments'),
       ),
       body: _appointmentDates.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : TableCalendar(
         firstDay: DateTime.utc(2020, 10, 16),
         lastDay: DateTime.utc(2030, 3, 14),

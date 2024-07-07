@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/splash_screen.dart';
+import 'package:myproject/viewmodel/appblogs_viewmmodel.dart';
 import 'package:myproject/viewmodel/calories_viewmodel.dart';
 import 'package:myproject/viewmodel/doctor_viewmodel.dart';
 import 'package:myproject/viewmodel/forgot_viewModel.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TabScreenViewModel()),
         ChangeNotifierProvider(create: (context) => CaloriesViewModel()),
         ChangeNotifierProvider(create: (context) => HomeScreenViewModel()),
+        ChangeNotifierProvider(create: (context) => AppBlogsViewModel()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

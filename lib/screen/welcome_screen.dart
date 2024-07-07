@@ -117,7 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15.0),
                               ),
-                            ):SizedBox(),
+                            ):const SizedBox(),
 
                             widget.role == 'Patient' ?GestureDetector(
                               onTap: () {
@@ -138,7 +138,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15.0),
                               ),
-                            ):SizedBox(),
+                            ):const SizedBox(),
                           ],
                         ),
                       ),

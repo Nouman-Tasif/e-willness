@@ -1,15 +1,22 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:myproject/screen/notification_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screen/notification_screen.dart';
 
 class NotificationService {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  List<RemoteMessage> notifications = []; // Add this list to store notifications
+  List<RemoteMessage> notifications = [];
+
+  NotificationService() {
+    loadNotifications();
+  }
 
   void requestNotificationPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
@@ -31,8 +38,8 @@ class NotificationService {
   }
 
   void initLocalNotifications(BuildContext context, RemoteMessage message) async {
-    var androidInitializationSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iosInitializationSettings = DarwinInitializationSettings();
+    var androidInitializationSettings = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iosInitializationSettings = const DarwinInitializationSettings();
     var initializeSetting = InitializationSettings(
       android: androidInitializationSettings,
       iOS: iosInitializationSettings,
@@ -44,7 +51,8 @@ class NotificationService {
   }
 
   Future<void> showNotification(RemoteMessage message) async {
-    notifications.add(message); // Store the notification
+    notifications.add(message);
+    saveNotifications();
 
     AndroidNotificationChannel channel = AndroidNotificationChannel(
       Random.secure().nextInt(1000).toString(),
@@ -124,5 +132,18 @@ class NotificationService {
       event.toString();
     });
   }
-}
 
+  void saveNotifications() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notificationsJson = notifications.map((e) => jsonEncode(e.toMap())).toList();
+    await prefs.setStringList('notifications', notificationsJson);
+  }
+
+  void loadNotifications() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? notificationsJson = prefs.getStringList('notifications');
+    if (notificationsJson != null) {
+      notifications = notificationsJson.map((e) => RemoteMessage.fromMap(jsonDecode(e))).toList();
+    }
+  }
+}

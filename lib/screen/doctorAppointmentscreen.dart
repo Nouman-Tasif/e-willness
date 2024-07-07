@@ -11,7 +11,7 @@ class doctorAppointment extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-        title: Text('My Appointment'),
+        title: const Text('My Appointment'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,7 +27,7 @@ class doctorAppointment extends StatelessWidget {
                         builder: (context) => DoctorShowAppointmentsScreen()));
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal,
+                backgroundColor: Colors.teal,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
