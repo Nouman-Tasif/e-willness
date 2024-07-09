@@ -14,6 +14,7 @@ class DoctorProfileViewModel with ChangeNotifier {
   final dob = TextEditingController();
   final specialist = TextEditingController();
   final address = TextEditingController();
+  final number = TextEditingController();
   final qualification = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
   TimeOfDay? startTime;
@@ -206,6 +207,7 @@ class DoctorProfileViewModel with ChangeNotifier {
       'dob': dob.text,
       'disease': selectedDiseases,
       'address': address.text,
+      'number' :number.text,
       'Qualification': qualification.text,
       'profileImage': imageURL ?? '',
       'Available' : availableDays.toString(),

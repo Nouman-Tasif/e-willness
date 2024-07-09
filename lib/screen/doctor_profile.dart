@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/bookAOppoinment.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DoctorProfile extends StatefulWidget {
   final String doctorId;
+
   const DoctorProfile({super.key, required this.doctorId});
 
   @override
@@ -20,7 +22,10 @@ class _DoctorProfileState extends State<DoctorProfile> {
         backgroundColor: Colors.teal,
       ),
       body: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance.collection('Doctor').doc(widget.doctorId).get(),
+        future: FirebaseFirestore.instance
+            .collection('Doctor')
+            .doc(widget.doctorId)
+            .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -73,7 +78,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.calendar_today, size: 16, color: Colors.teal),
+                            const Icon(Icons.calendar_today,
+                                size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
                             Text(
                               doctorData['dob'],
@@ -84,14 +90,14 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.local_hospital, size: 16, color: Colors.teal),
+                            const Icon(Icons.local_hospital,
+                                size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 doctorData['disease'].toString(),
                                 overflow: TextOverflow.visible,
                                 softWrap: true,
-                                 
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ),
@@ -100,7 +106,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.location_on, size: 16, color: Colors.teal),
+                            const Icon(Icons.location_on,
+                                size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
@@ -113,7 +120,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.school, size: 16, color: Colors.teal),
+                            const Icon(Icons.school,
+                                size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
                             Text(
                               doctorData['Qualification'],
@@ -124,7 +132,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.schedule, size: 16, color: Colors.teal),
+                            const Icon(Icons.schedule,
+                                size: 16, color: Colors.teal),
                             const SizedBox(width: 8),
                             Text(
                               doctorData['Available'],
@@ -135,11 +144,11 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const SizedBox(height: 8),
                         Row(
                           children: const [
-                             Icon(Icons.timelapse, size: 16, color: Colors.teal),
-                             SizedBox(width: 8),
+                            Icon(Icons.timelapse, size: 16, color: Colors.teal),
+                            SizedBox(width: 8),
                             Text(
                               '09:00am to 6:00pm',
-                              style:  TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
@@ -152,18 +161,21 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          // Implement video call functionality
+                        onPressed: () async {
+                          debugPrint("url launch :");
+                          final Uri whatsapp = Uri.parse('https://wa.me/92${doctorData['number']}');
+                             launchUrl(whatsapp);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
                         child: const Text(
-                          'Start Video Call',
+                          'Contact on Whatsapp',
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -173,7 +185,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AppointmentBookingScreen(doctorId: widget.doctorId),
+                              builder: (context) => AppointmentBookingScreen(
+                                  doctorId: widget.doctorId),
                             ),
                           );
                         },
@@ -182,7 +195,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
                         child: const Text(
                           'Book Appointment',

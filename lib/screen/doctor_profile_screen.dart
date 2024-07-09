@@ -263,6 +263,28 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                return null;
+                              }
+                              return "Enter number";
+                            },
+                            controller: viewModel.number,
+                            decoration: InputDecoration(
+                              hintText: 'Enter number start with 3...',
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.map),
+                                onPressed: () {
+                                  // Handle icon pressed
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 50),
                           child: TextFormField(
                             validator: (value) {
