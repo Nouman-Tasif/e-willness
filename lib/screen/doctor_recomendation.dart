@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/constants/constatsvalue.dart';
-import 'package:myproject/screen/doctorAppointmentscreen.dart';
-import 'package:myproject/screen/doctor_profile.dart';
+import 'package:myproject/screen/patient_history_screen.dart';
 import 'package:myproject/screen/patient_tab_bar_screen.dart';
 
 class DoctorRecommendation extends StatelessWidget {
@@ -17,6 +16,14 @@ class DoctorRecommendation extends StatelessWidget {
       appBar: AppBar(
         title:
             const Center(child: Text('Doctors', textAlign: TextAlign.center)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>PatientHistory()));
+            },
+          ),
+        ],
       ),
       body: role == "Patient"
           ? PatientTabBarScreen()
@@ -158,7 +165,6 @@ class DoctorRecommendation extends StatelessWidget {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 );
