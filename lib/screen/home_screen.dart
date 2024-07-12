@@ -98,13 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(role: widget.role)));
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.feedback),
-                title: const Text('Give Feedback'),
-                onTap: () {
-                  // Perform give feedback action
-                },
-              ),
+
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Logout'),
