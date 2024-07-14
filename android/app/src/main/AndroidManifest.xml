@@ -16,7 +16,7 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/newlogo"
+        android:icon="@drawable/icon_with_white_background"
         android:label="E willness">
 
         <service
