@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/constants/constatsvalue.dart';
+import 'package:myproject/screen/doctor_apppointmentscreen.dart';
 import 'package:myproject/screen/patient_history_screen.dart';
 import 'package:myproject/screen/patient_tab_bar_screen.dart';
 
@@ -20,7 +21,8 @@ class DoctorRecommendation extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.history),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>PatientHistory()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PatientHistory()));
             },
           ),
         ],
@@ -162,6 +164,26 @@ class DoctorRecommendation extends StatelessWidget {
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentScreen()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 16),
+                          ),
+                          child: const Text(
+                            'My Appointment',
+                            style: TextStyle(fontSize: 16),
                           ),
                         ),
                       ),

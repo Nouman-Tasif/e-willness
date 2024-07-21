@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:myproject/screen/doctor_profilescreen.dart';
-
 import '../model/doctor_model.dart';
 
 class DoctorListScreen extends StatelessWidget {
@@ -118,8 +116,7 @@ class DoctorListScreen extends StatelessWidget {
         schedule: 'Monday to Sunday'),
     Doctor(
         name: 'Dr. Sandleen Jawad Begum',
-        specialty:
-            'Backpain problems, Stroke and post operative rehabilations, shoulder impingement',
+        specialty: 'Backpain problems, Stroke and post operative rehabilations, shoulder impingement',
         degree: 'MBBS',
         years: '4 years',
         officeTime: '10:00am to 2:00pm',
@@ -209,94 +206,8 @@ class DoctorListScreen extends StatelessWidget {
         officeTime: '7:00am to 12:00pm',
         schedule: 'Monday to Sunday'),
   ];
-  List<String> patientDisease = [
-    'flu',
-    'bronchitis',
-    'pneumonia',
-    'heart attack',
-    'stroke',
-    'cancer',
-    'diabetes',
-    'alzheimer',
-    'arthritis',
-    'adenovirus',
-    'aflatoxicosis',
-    'alcoholism',
-    'allergic rhinitis',
-    'alzheimers disease',
-    'anemia',
-    'anxiety disorder',
-    'appendicitis',
-    'asperger syndrome',
-    'asthma',
-    'bacterial meningitis',
-    'bipolar disorder',
-    'bladder cancer',
-    'blood clot',
-    'bursitis',
-    'cervical cancer',
-    'chickenpox',
-    'chronic obstructive pulmonary disease (copd)',
-    'cholesterol',
-    'common cold',
-    'conjunctivitis',
-    'depression',
-    'diarrhea',
-    'eating disorder',
-    'epilepsy',
-    'fever',
-    'food poisoning',
-    'gallstones',
-    'gonorrhea',
-    'heart disease',
-    'hepatitis',
-    'herpes',
-    'influenza',
-    'irritable bowel syndrome (ibs)',
-    'kidney stones',
-    'lung cancer',
-    'malaria',
-    'measles',
-    'meningitis',
-    'mononucleosis',
-    'rabies',
-    'salmonella',
-    'shingles',
-    'tuberculosis (tb)',
-    'urinary tract infection (uti)',
-    'varicose veins',
-    'warts',
-    'yeast infection',
-    'acanthamoebkeratitis',
-    'acute appendicitis',
-    'acute kidney injury (aki)',
-    "alzheimer's disease",
-    'aortic aneurysm',
-    'colorectal cancer',
-    'dementia',
-    'erectile dysfunction',
-    'fibromyalgia',
-    'glaucoma',
-    'heart failure',
-    'kidney disease',
-    'lung disease',
-    "parkinson's disease",
-    'peptic ulcer disease',
-    'peripheral artery disease',
-    'prostate cancer',
-    'rheumatoid arthritis',
-    'stomach cancer',
-    'thyroid cancer',
-    'ulcerative colitis',
-    'atopic dermatitis',
-    'celiac disease',
-    'chronic kidney disease',
-    "crohn's disease",
-    "graves' disease",
-    "hashimoto's thyroiditis",
-    'lupus'
-  ];
 
+  // Function to get a random name from a list of names
   String getRandomName() {
     var names = [
       'Bilal Afzal',
@@ -327,10 +238,10 @@ class DoctorListScreen extends StatelessWidget {
       'Waheeda Hussain',
       'Armaghana Ahmed',
       'Itrat Naseem',
-      'Irfan Ahmed'
-          'Muhammad Farooq',
-      'Naveed Ahmed'
-          'Sadaf Iqbal',
+      'Irfan Ahmed',
+      'Muhammad Farooq',
+      'Naveed Ahmed',
+      'Sadaf Iqbal',
       'Zubair Javed',
       'Jawad',
       'Shaukat Nawaz'
@@ -339,26 +250,127 @@ class DoctorListScreen extends StatelessWidget {
     return names[random.nextInt(names.length)];
   }
 
+  // Function to get a random specialty from a list of diseases
+  String getRandomSpecialty() {
+    var specialties = [
+      'flu',
+      'bronchitis',
+      'pneumonia',
+      'heart attack',
+      'stroke',
+      'cancer',
+      'diabetes',
+      'alzheimer',
+      'arthritis',
+      'adenovirus',
+      'aflatoxicosis',
+      'alcoholism',
+      'allergic rhinitis',
+      'alzheimers disease',
+      'anemia',
+      'anxiety disorder',
+      'appendicitis',
+      'asperger syndrome',
+      'asthma',
+      'bacterial meningitis',
+      'bipolar disorder',
+      'bladder cancer',
+      'blood clot',
+      'bursitis',
+      'cervical cancer',
+      'chickenpox',
+      'chronic obstructive pulmonary disease (copd)',
+      'cholesterol',
+      'common cold',
+      'conjunctivitis',
+      'depression',
+      'diarrhea',
+      'eating disorder',
+      'epilepsy',
+      'fever',
+      'food poisoning',
+      'gallstones',
+      'gonorrhea',
+      'heart disease',
+      'hepatitis',
+      'herpes',
+      'influenza',
+      'irritable bowel syndrome (ibs)',
+      'kidney stones',
+      'lung cancer',
+      'malaria',
+      'measles',
+      'meningitis',
+      'mononucleosis',
+      'rabies',
+      'salmonella',
+      'shingles',
+      'tuberculosis (tb)',
+      'urinary tract infection (uti)',
+      'varicose veins',
+      'warts',
+      'yeast infection',
+      'acanthamoebkeratitis',
+      'acute appendicitis',
+      'acute kidney injury (aki)',
+      "alzheimer's disease",
+      'aortic aneurysm',
+      'colorectal cancer',
+      'dementia',
+      'erectile dysfunction',
+      'fibromyalgia',
+      'glaucoma',
+      'heart failure',
+      'kidney disease',
+      'lung disease',
+      "parkinson's disease",
+      'peptic ulcer disease',
+      'peripheral artery disease',
+      'prostate cancer',
+      'rheumatoid arthritis',
+      'stomach cancer',
+      'thyroid cancer',
+      'ulcerative colitis',
+      'atopic dermatitis',
+      'celiac disease',
+      'chronic kidney disease',
+      "crohn's disease",
+      "graves' disease",
+      "hashimoto's thyroiditis",
+      'lupus'
+      // Add other specialties here...
+    ];
+    var random = Random();
+    return specialties[random.nextInt(specialties.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     var random = Random();
 
-    for (var i = 0; i < doctors.length; i++) {
-      var name = 'Dr. ${getRandomName()}';
-      var specialty = patientDisease[random.nextInt(patientDisease.length)];
+    // Generate new doctors with random attributes
+    List<Doctor> generatedDoctors = List.generate(20, (index) {
+      return Doctor(
+        name: 'Dr. ${getRandomName()}',
+        specialty: getRandomSpecialty(),
+        degree: 'MBBS, ${getRandomSpecialty()}',
+        years: '${random.nextInt(15) + 1} years',
+        officeTime: '${random.nextInt(12) + 7}:00am to ${random.nextInt(6) + 1}:00pm',
+        schedule: 'Monday to ${['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][random.nextInt(5)]}',
+      );
+    });
 
-      doctors.add(Doctor(
-          name: name,
-          specialty: specialty,
-          degree: specialty,
-          years: specialty,
-          officeTime: specialty,
-          schedule: specialty));
+    // Filter doctors based on selected disease
+    List<Doctor> filteredDoctors = generatedDoctors.where((doctor) =>
+        doctor.specialty.toLowerCase().contains(selectedDisease.toLowerCase())).toList();
+
+    // Ensure at least two doctors per disease
+    while (filteredDoctors.length < 2) {
+      var newDoctor = generatedDoctors[random.nextInt(generatedDoctors.length)];
+      if (!filteredDoctors.contains(newDoctor)) {
+        filteredDoctors.add(newDoctor);
+      }
     }
-    List<Doctor> filteredDoctors = doctors
-        .where((doctor) =>
-            doctor.specialty.toLowerCase() == selectedDisease.toLowerCase())
-        .toList();
 
     return Scaffold(
       appBar: AppBar(

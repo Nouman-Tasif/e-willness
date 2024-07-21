@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:myproject/constants/constatsvalue.dart';
 
 
 class AppointmentBookingScreen extends StatefulWidget {
   final String doctorId;
+  String doctorName;
 
-  const AppointmentBookingScreen({Key? key, required this.doctorId}) : super(key: key);
+  AppointmentBookingScreen({Key? key, required this.doctorId,required this.doctorName}) : super(key: key);
 
   @override
   _AppointmentBookingScreenState createState() => _AppointmentBookingScreenState();
@@ -37,6 +39,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
           .add({
         'doctorId': widget.doctorId,
         'patientId': FirebaseAuth.instance.currentUser?.uid ?? '',
+        'name':DynamicSize.username,
+        'doctorname':widget.doctorName,
         'appointmentDate': _selectedDate,
         'createdAt': Timestamp.now(),
       }).then((_) {
@@ -96,7 +100,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             ElevatedButton(
               onPressed: _bookAppointment,
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal,
+                backgroundColor: Colors.teal,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

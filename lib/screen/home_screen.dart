@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myproject/constants/constatsvalue.dart';
 import 'package:myproject/screen/login_screen.dart';
+import 'package:myproject/screen/patient_appointment_screen.dart';
 import 'package:myproject/screen/profile_screen.dart';
 import 'package:myproject/viewmodel/homescreen_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -36,14 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {
-                // Perform notification action
-              },
-            ),
-          ],
+
         ),
         drawer: Drawer(
           child: ListView(
@@ -67,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.hasData) {
                       var userData =
                           snapshot.data!.data() as Map<String, dynamic>?;
+                      DynamicSize.username = userData?['fullName'];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -98,7 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(role: widget.role)));
                 },
               ),
-
+              widget.role == "Patient"
+                  ? ListTile(
+                leading: const Icon(Icons.schedule_rounded),
+                title: const Text('My Appointment'),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PatientAppointmentScreen()));
+                },
+              ):Container(),
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Logout'),

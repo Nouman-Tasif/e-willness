@@ -9,8 +9,13 @@ class DiseaseListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorListScreen(selectedDisease: disease)));
+      onTap: () {
+        debugPrint("---------------disease--${disease}");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DoctorListScreen(selectedDisease: disease)),
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -186,7 +186,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => AppointmentBookingScreen(
-                                  doctorId: widget.doctorId),
+                                  doctorId: widget.doctorId,doctorName:doctorData['fullName'] ),
                             ),
                           );
                         },
